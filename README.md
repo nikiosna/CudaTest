@@ -4,6 +4,7 @@ A simple programm based on JCuda to measure the time for adding n numbers via CU
 Currently only works on linux (tested on Linux Mint  18.1)
 
 **Installation:**
+
   1. Download zip from https://github.com/nikiosna/CudaTest/releases
   2. extract and "cd CudaTest"
   3. (float  test) java -jar CudaTest.jar -f
@@ -19,7 +20,9 @@ Currently only works on linux (tested on Linux Mint  18.1)
     -n (--number) [int]   Change the default value from 10 000 000 to a chosen number
 
 **Building:**
+
     TODO
     
 **Libraries:**
+
     JCuda https://github.com/jcuda/jcuda-main
