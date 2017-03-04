@@ -2,6 +2,7 @@ public class CudaTest {
     public static void main(String[] args) {
         String test = null;
         int n = 10000000;
+        boolean memory = false;
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -19,6 +20,14 @@ public class CudaTest {
                 }
                 case "--float": {
                     test = "float";
+                    break;
+                }
+                case "-m": {
+                    memory = true;
+                    break;
+                }
+                case "--memory": {
+                    memory = true;
                     break;
                 }
                 case "-n": {
@@ -45,12 +54,14 @@ public class CudaTest {
         //CUDA test
         float gpu_time = -1;
         if(test.equals("float")) {
-            gpu_time = CudaTestFloat.run(n);
+            gpu_time = CudaTestFloat.run(n, memory);
         } else if (test.equals("double")) {
-            gpu_time = CudaTestDouble.run(n);
+            gpu_time = CudaTestDouble.run(n, memory);
         }
 
         //CPU test
+        long t1 = 0;
+        if(memory) t1 = System.nanoTime();
         float A[] = new float[n];
         float B[] = new float[n];
         float C[] = new float[n];
@@ -58,7 +69,7 @@ public class CudaTest {
             A[i] = (float) i;
             B[i] = (float) i;
         }
-        long t1 = System.nanoTime();
+        if(!memory) t1 = System.nanoTime();
         for(int i = 0; i < n; i++) {
             C[i] = A[i] + B[i];
         }
@@ -75,5 +86,6 @@ public class CudaTest {
         System.out.println("Syntax:");
         System.out.println("Necessary --double or --float");
         System.out.println("Additional --number [int] (default is 10000000)");
+        System.out.println("           --memory  include the memory copy time");
     }
 }

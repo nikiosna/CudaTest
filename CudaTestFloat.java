@@ -1,14 +1,14 @@
+import static jcuda.driver.JCudaDriver.*;
 import jcuda.Pointer;
 import jcuda.Sizeof;
 import jcuda.driver.*;
 
-import static jcuda.driver.JCudaDriver.*;
-
-
 //https://github.com/jcuda/jcuda-samples
 
 public class CudaTestFloat {
-    public static float run(int n) {
+    public static float run(int n, boolean memory) {
+        long t1 = 0;
+        long time = 0;
         JCudaDriver.setExceptionsEnabled(true);
 
         // Initialize the driver and create a context for the first device.
@@ -17,6 +17,8 @@ public class CudaTestFloat {
         cuDeviceGet(device, 0);
         CUcontext context = new CUcontext();
         cuCtxCreate(context, 0, device);
+
+        if(memory) t1 = System.nanoTime();
 
         // Load the ptx file.
         CUmodule module = new CUmodule();
@@ -56,7 +58,7 @@ public class CudaTestFloat {
                 Pointer.to(deviceOutput)
         );
 
-        long t1 = System.nanoTime();
+        if(!memory) t1 = System.nanoTime();
         // Call the kernel function.
         int blockSizeX = 256;
         int gridSizeX = (int)Math.ceil((double)n / blockSizeX);
@@ -67,12 +69,15 @@ public class CudaTestFloat {
                 kernelParameters, null // Kernel- and extra parameters
         );
         cuCtxSynchronize();
-        long time = System.nanoTime() - t1;
+
+        if(!memory) time = System.nanoTime() - t1;
 
         // Allocate host output memory and copy the device output
         // to the host.
         float hostOutput[] = new float[n];
         cuMemcpyDtoH(Pointer.to(hostOutput), deviceOutput, n * Sizeof.FLOAT);
+
+        if(memory) time = System.nanoTime() - t1;
 
         // Clean up.
         cuMemFree(deviceInputA);
