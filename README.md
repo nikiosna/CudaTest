@@ -18,6 +18,7 @@ Currently only works on linux (tested on Linux Mint  18.1)
     
     additional
     -n (--number) [int]   Change the default value from 10 000 000 to a chosen number
+    -m (--memory)         Include the runtime of the memory copy
 
 **Building:**
 
