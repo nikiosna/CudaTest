@@ -30,8 +30,10 @@ public class CudaTest {
                     break;
                 }
                 default: {
-                    printUsage();
-                    System.exit(-1);
+                    if(!(args[i-1].equals("-n") || args[i-1].equals("--number"))) {
+                        printUsage();
+                        System.exit(-1);
+                    }
                 }
             }
         }
@@ -72,6 +74,6 @@ public class CudaTest {
     static void printUsage() {
         System.out.println("Syntax:");
         System.out.println("Necessary --double or --float");
-        System.out.println("Additional --number [int] (default is 10000000");
+        System.out.println("Additional --number [int] (default is 10000000)");
     }
 }
