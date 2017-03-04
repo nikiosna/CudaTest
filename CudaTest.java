@@ -1,7 +1,7 @@
 public class CudaTest {
     public static void main(String[] args) {
         String test = null;
-        int n = 10000000;
+        int n = 40000000;
         boolean memory = false;
 
         for (int i = 0; i < args.length; i++) {
