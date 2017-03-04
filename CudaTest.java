@@ -2,7 +2,6 @@ public class CudaTest {
     public static void main(String[] args) {
         String test = null;
         int n = 10000000;
-        args = new String[] {"-d"};
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
