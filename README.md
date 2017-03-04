@@ -13,7 +13,7 @@ Syntax:
     necessary
     -d (--double) OR -f (--float)
     additional
-    -n (--number) [int]   Change the default value from 10 000 000 to a choosen number
+    -n (--number) [int]   Change the default value from 10 000 000 to a chosen number
 
 Building:
     TODO
