@@ -17,3 +17,6 @@ Syntax:
 
 Building:
     TODO
+    
+Libraries
+    JCuda https://github.com/jcuda/jcuda-main
