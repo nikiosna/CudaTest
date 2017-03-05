@@ -18,8 +18,6 @@ public class CudaTestDouble {
         CUcontext context = new CUcontext();
         cuCtxCreate(context, 0, device);
 
-        if(memory) t1 = System.nanoTime();
-
         // Load the ptx file.
         CUmodule module = new CUmodule();
         cuModuleLoad(module, "module/vectoradd_double.ptx");
@@ -35,6 +33,8 @@ public class CudaTestDouble {
             hostInputA[i] = (double) i;
             hostInputB[i] = (double) i;
         }
+
+        if(memory) t1 = System.nanoTime();
 
         // Allocate the device input data, and copy the
         // host input data to the device
